@@ -1,0 +1,24 @@
+=======================================================
+       PROJECT CHRONOS - SIMULATION 001
+          SPECIAL RELATIVISTIC TIME
+=======================================================
+
+EXPERIMENT 1: CONSTANT VELOCITY
+Velocity       : 0.990 c
+Lorentz factor : 7.088812
+Earth time     : 10.0000 years
+Traveller time : 1.4107 years
+
+EXPERIMENT 2: TWIN PARADOX
+Outbound time  : 5 years
+Inbound time   : 5 years
+Earth time     : 10.0000 years
+Traveller time : 1.4107 years
+Time difference: 8.5893 years
+
+EXPERIMENT 3: VARIABLE VELOCITY
+Reference time : 10.0000 years
+Proper time    : 6.5475 years
+
+Simulation completed successfully.
+Graph saved as chronos_01_time_dilation.png

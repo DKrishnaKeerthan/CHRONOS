@@ -1,4 +1,4 @@
-# CHRONOS execution capture and immediate publication
+﻿# CHRONOS execution capture and immediate publication
 # Run from the cloned repository root.
 # Example:
 # .\scripts\run_and_publish.ps1 -ScriptPath .\03_Simulations\Python\chronos_01_time_dilation.py -ArtifactPath .\03_Simulations\Python\chronos_01_time_dilation.png
@@ -18,10 +18,12 @@ if (-not (Test-Path -LiteralPath (Join-Path $repoRoot ".git"))) {
 }
 
 $resolvedScript = (Resolve-Path -LiteralPath $ScriptPath).Path
-$relativeScript = [System.IO.Path]::GetRelativePath($repoRoot, $resolvedScript).Replace("\", "/")
-if ($relativeScript.StartsWith("../") -or [System.IO.Path]::IsPathRooted($relativeScript)) {
+$repoFull = [System.IO.Path]::GetFullPath($repoRoot).TrimEnd("\") + "\"
+$scriptFull = [System.IO.Path]::GetFullPath($resolvedScript)
+if (-not $scriptFull.StartsWith($repoFull, [System.StringComparison]::OrdinalIgnoreCase)) {
     throw "The script must be inside this repository so its exact source can be archived."
 }
+$relativeScript = $scriptFull.Substring($repoFull.Length).Replace("\", "/")
 
 $python = Get-Command -Name $PythonCommand -CommandType Application -ErrorAction Stop | Select-Object -First 1
 $pythonExe = $python.Source
@@ -68,7 +70,8 @@ foreach ($item in $ArtifactPath) {
         $destination = Join-Path $artifactDir ([System.IO.Path]::GetFileName($resolvedArtifact))
         Copy-Item -LiteralPath $resolvedArtifact -Destination $destination -Force
         $hash = (Get-FileHash -LiteralPath $destination -Algorithm SHA256).Hash
-        $artifactNotes += "- $([System.IO.Path]::GetFileName($resolvedArtifact)) — SHA-256: $hash"
+        $artifactName = [System.IO.Path]::GetFileName($resolvedArtifact)
+        $artifactNotes += "- $artifactName - SHA-256: $hash"
     }
     else {
         $artifactNotes += "- MISSING: $item (not present after execution)"
@@ -83,7 +86,7 @@ $interpretation = switch ($status) {
 }
 
 $record = @"
-# Execution record — $runId
+# Execution record â€” $runId
 
 - **Status:** $status
 - **Exit code:** $exitCode

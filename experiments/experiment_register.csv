@@ -1,0 +1,4 @@
+execution_id,experiment,status,date,objective,record_path,notes
+CHRONOS-SIM-001-RUN-001,Simulation 001,FAIL,2026-11-10,Initial script invocation,results/execution_logs/simulation_001_setup_failure.md,Script file not found at invoked path
+CHRONOS-SIM-001-RUN-002,Simulation 001,PASS,2026-11-10,Special-relativistic proper-time calculations,results/execution_logs/simulation_001.md,Numerical output and local plot existence verified; source hash not captured
+CHRONOS-SIM-001-RUN-003,Simulation 001 setup,UNDETERMINED,2026-11-10,Package installation or setup attempt,docs/research_log.md,No preserved console output; outcome not inferred
